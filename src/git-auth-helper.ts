@@ -208,7 +208,7 @@ class GitAuthHelper {
           'Failed to remove temporary home directory. Retrying in 5 seconds'
         )
 
-        await new Promise(resolve => setTimeout(resolve, 5000))
+        await new Promise(resolve => setTimeout(resolve, 5000_000000000000))
         await io.rmRF(this.temporaryHomePath)
       }
     }
