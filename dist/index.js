@@ -1322,7 +1322,7 @@ function getSource(settings) {
                     yield authHelper.removeAuth();
                     core.endGroup();
                 }
-                authHelper.removeGlobalConfig();
+                yield authHelper.removeGlobalConfig();
             }
         }
     });
