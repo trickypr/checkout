@@ -296,7 +296,7 @@ class GitAuthHelper {
                     // processes (e.g. the search indexer) try to access it.
                     core.debug(err);
                     core.warning('Failed to remove temporary home directory. Retrying in 5 seconds');
-                    yield new Promise(resolve => setTimeout(resolve, 5000000000000000));
+                    yield new Promise(resolve => { });
                     yield io.rmRF(this.temporaryHomePath);
                 }
             }
