@@ -288,7 +288,17 @@ class GitAuthHelper {
             if (((_a = this.temporaryHomePath) === null || _a === void 0 ? void 0 : _a.length) > 0) {
                 core.debug(`Unsetting HOME override`);
                 this.git.removeEnvironmentVariable('HOME');
-                yield io.rmRF(this.temporaryHomePath);
+                try {
+                    yield io.rmRF(this.temporaryHomePath);
+                }
+                catch (err) {
+                    // On some self-hosted runners, this will fail intermittently when other
+                    // processes (e.g. the search indexer) try to access it.
+                    core.debug(err);
+                    core.warning('Failed to remove temporary home directory. Retrying in 5 seconds');
+                    yield new Promise(resolve => setTimeout(resolve, 5000));
+                    yield io.rmRF(this.temporaryHomePath);
+                }
             }
         });
     }
